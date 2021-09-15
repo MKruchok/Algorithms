@@ -16,4 +16,8 @@ Implement a sorting algorithm - QuickSort(ascending/descending)
   + sort in descending order of sorted array in descending order
   
   ### How to run
-  + run command `python3 -m unittest tests.py` while in project folder
+  + Clone repository: `git clone https://github.com/MKruchok/Algorithms.git`
+  + Choose lab_1 branch: `git checkout lab_1`
+  + Get into folder: `cd Algorithms`
+  + Run `py quick_sort.py -a <int array> -o <asc/desc>`
+  
