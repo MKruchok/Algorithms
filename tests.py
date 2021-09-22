@@ -15,7 +15,7 @@ class TestPriorityQueue(unittest.TestCase):
         self.assertEqual(self.priorityQ.peek(), 56)
 
     def test_find(self):
-        self.assertEqual(self.priorityQ.find(11), "Value to find: 11, priority: 3, index: 3")
+        self.assertEqual(self.priorityQ.find(11), "Value to find: 11, priority: 3, index: 4")
 
     def test_pop(self):
         self.assertEqual(self.priorityQ.pop(), 56)
