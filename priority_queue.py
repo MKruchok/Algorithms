@@ -20,27 +20,33 @@ class PQueue:
         return popped.value
 
     def up(self, index, elem):
-        while index > 0 and elem.priority > self.heap[int((index - 1) / 2)].priority:
+        while int(index) > 0 and elem.priority > self.heap[int((index - 1) / 2)].priority:
             self.heap[int(index)] = self.heap[int((index - 1) / 2)]
             index -= 1
             index /= 2
-        if index <= 0:
-            self.heap[0] = elem
-        else:
-            self.heap[int(index)] = elem
+        # if index <= 0:
+        #     self.heap[0] = elem
+        # else:
+        self.heap[int(index)] = elem
 
     def down(self, index):
         left = 2 * index + 1
         right = 2 * index + 2
         big = index
-        if right >= len(self.heap):
+        try:
+            while self.heap[big].priority < self.heap[left].priority or self.heap[big].priority < self.heap[right].priority:
+                if right >= len(self.heap):
+                    return
+                if self.heap[big].priority < self.heap[left].priority:
+                    big = left
+                if self.heap[big].priority < self.heap[right].priority:
+                    big = right
+                self.heap[index], self.heap[big] = self.heap[big], self.heap[index]
+                index = big
+                left = 2 * big + 1
+                right = 2 * big + 2
+        except IndexError:
             return
-        if self.heap[big].priority < self.heap[left].priority:
-            big = left
-        if self.heap[big].priority < self.heap[right].priority:
-            big = right
-        if big is not index:
-            self.heap[index], self.heap[big] = self.heap[big], self.heap[index]
 
     def peek(self):
         return self.heap[0].value
