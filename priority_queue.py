@@ -11,22 +11,24 @@ class PQueue:
 
     def add(self, value, priority):
         self.heap.append(Node(value, priority))
-        self.up(len(self.heap) - 1, self.heap[len(self.heap) - 1])
+        self.swim(len(self.heap) - 1, self.heap[len(self.heap) - 1])
 
     def pop(self):
         self.heap[len(self.heap) - 1], self.heap[0] = self.heap[0], self.heap[len(self.heap) - 1]
         popped = self.heap.pop()
-        self.down(0)
+        self.sink(0)
         return popped.value
 
-    def up(self, index, elem):
-        while int(index) > 0 and elem.priority > self.heap[int((index - 1) / 2)].priority:
-            self.heap[int(index)] = self.heap[int((index - 1) / 2)]
-            index -= 1
-            index /= 2
-        self.heap[int(index)] = elem
+    def swim(self, index, elem):
+        ind = index
+        prev = int((index - 1) / 2)
+        while ind > 0 and elem.priority > self.heap[prev].priority:
+            self.heap[ind] = self.heap[prev]
+            ind = int((ind - 1) / 2)
+            prev = int((ind - 1) / 2)
+        self.heap[int(ind)] = elem
 
-    def down(self, index):
+    def sink(self, index):
         left = 2 * index + 1
         right = 2 * index + 2
         big = index
