@@ -24,9 +24,6 @@ class PQueue:
             self.heap[int(index)] = self.heap[int((index - 1) / 2)]
             index -= 1
             index /= 2
-        # if index <= 0:
-        #     self.heap[0] = elem
-        # else:
         self.heap[int(index)] = elem
 
     def down(self, index):
