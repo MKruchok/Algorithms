@@ -26,7 +26,7 @@ class PQueue:
             self.heap[ind] = self.heap[prev]
             ind = int((ind - 1) / 2)
             prev = int((ind - 1) / 2)
-        self.heap[int(ind)] = elem
+        self.heap[ind] = elem
 
     def sink(self, index):
         left = 2 * index + 1
