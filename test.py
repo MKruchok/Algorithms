@@ -22,8 +22,15 @@ class TestDijkstra(unittest.TestCase):
         self.graph.add_line(6, 7, 1)
 
     def test_0(self):
+        self.distance_main = self.graph.dijkstra(0)
+        self.distance_sum = 0
+        for end_vertex in range(len(self.distance_main)):
+            print("Distance from", 0, "to", end_vertex, "==", self.distance_main[end_vertex])
+            self.distance_sum += self.distance_main[end_vertex]
         result = [0, 14, 10, 4, 1, 9, 3, 2, 5]
-        self.assertEqual(self.graph.dijkstra(0), result)
+        self.middle = self.distance_sum / len(self.distance_main)
+        print("Arithmetic mean ==", round(self.middle, 2))
+        self.assertEqual(self.distance_main, result)
 
     def test_1(self):
         result = [14, 0, 9, 15, 14, 20, 12, 13, 16]
