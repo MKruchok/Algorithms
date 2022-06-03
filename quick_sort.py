@@ -9,30 +9,29 @@ class SortOrder(Enum):
     DESC = 2
 
 
-def partition(array, right, left, ascending: bool = True):
+def partition(array, left, right_and_pivot, ascending: bool = True):
     global swaps, comparisons
-    i = (right - 1)
-    pivot = array[left]
+    pivot_val = array[right_and_pivot]
 
-    for j in range(right, left):
-        comparisons += 1
-        if array[j] <= pivot and ascending or array[j] >= pivot and not ascending:
-            i = i + 1
+    for current in range(left, right_and_pivot):
+        if array[current] <= pivot_val and ascending or array[current] >= pivot_val and not ascending:
+            array[left], array[current] = array[current], array[left]
+            left += 1
             swaps += 1
-            array[i], array[j] = array[j], array[i]
+        comparisons += 1
 
-    array[i + 1], array[left] = array[left], array[i + 1]
-    return i + 1
+    array[left], array[right_and_pivot] = array[right_and_pivot], array[left]
+    return left
 
 
-def quickSort(array, right, left, ascending: bool = True):
+def quick_sort(array, left, right, ascending: bool = True):
     if len(array) == 1:
         return array
-    if right < left:
-        pi = partition(array, right, left, ascending)
+    if left < right:
+        pivot = partition(array, left, right, ascending)
 
-        quickSort(array, right, pi - 1, ascending)
-        quickSort(array, pi + 1, left, ascending)
+        quick_sort(array, left, pivot - 1, ascending)
+        quick_sort(array, pivot + 1, right, ascending)
     return array
 
 
@@ -56,7 +55,7 @@ swaps = 0
 arr, ascending = main(sys.argv[1:])
 n = len(arr)
 start = datetime.datetime.now()
-sorted_arr = quickSort(arr, 0, n - 1, ascending)
+sorted_arr = quick_sort(arr, 0, n - 1, ascending)
 execution_time = datetime.datetime.now() - start
 print("QuickSort:\n"
       f"Execution time: {execution_time.total_seconds() * 1000} ms\n"
