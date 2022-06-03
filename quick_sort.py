@@ -9,30 +9,30 @@ class SortOrder(Enum):
     DESC = 2
 
 
-def partition(array, low, high, ascending: bool = True):
+def partition(array, right, left, ascending: bool = True):
     global swaps, comparisons
-    i = (low - 1)
-    pivot = array[high]
+    i = (right - 1)
+    pivot = array[left]
 
-    for j in range(low, high):
+    for j in range(right, left):
         comparisons += 1
         if array[j] <= pivot and ascending or array[j] >= pivot and not ascending:
             i = i + 1
             swaps += 1
             array[i], array[j] = array[j], array[i]
 
-    array[i + 1], array[high] = array[high], array[i + 1]
+    array[i + 1], array[left] = array[left], array[i + 1]
     return i + 1
 
 
-def quickSort(array, low, high, ascending: bool = True):
+def quickSort(array, right, left, ascending: bool = True):
     if len(array) == 1:
         return array
-    if low < high:
-        pi = partition(array, low, high, ascending)
+    if right < left:
+        pi = partition(array, right, left, ascending)
 
-        quickSort(array, low, pi - 1, ascending)
-        quickSort(array, pi + 1, high, ascending)
+        quickSort(array, right, pi - 1, ascending)
+        quickSort(array, pi + 1, left, ascending)
     return array
 
 
