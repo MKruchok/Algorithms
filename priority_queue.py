@@ -21,29 +21,30 @@ class PQueue:
 
     def swim(self, index, elem):
         ind = index
-        prev = int((index - 1) / 2)
+        prev = (index - 1) // 2
         while ind > 0 and elem.priority > self.heap[prev].priority:
             self.heap[ind] = self.heap[prev]
-            ind = int((ind - 1) / 2)
-            prev = int((ind - 1) / 2)
+            ind = (ind - 1) // 2
+            prev = (ind - 1) // 2
         self.heap[ind] = elem
 
     def sink(self, index):
         left = 2 * index + 1
         right = 2 * index + 2
-        big = index
+        current = index
         try:
-            while self.heap[big].priority < self.heap[left].priority or self.heap[big].priority < self.heap[right].priority:
-                if right >= len(self.heap):
+            while self.heap[current].priority < self.heap[left].priority or \
+                    self.heap[current].priority < self.heap[right].priority:
+                if right is None:
                     return
-                if self.heap[big].priority < self.heap[left].priority:
-                    big = left
-                if self.heap[big].priority < self.heap[right].priority:
-                    big = right
-                self.heap[index], self.heap[big] = self.heap[big], self.heap[index]
-                index = big
-                left = 2 * big + 1
-                right = 2 * big + 2
+                if self.heap[current].priority < self.heap[left].priority:
+                    current = left
+                if self.heap[current].priority < self.heap[right].priority:
+                    current = right
+                self.heap[index], self.heap[current] = self.heap[current], self.heap[index]
+                index = current
+                left = 2 * current + 1
+                right = 2 * current + 2
         except IndexError:
             return
 
