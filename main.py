@@ -3,45 +3,42 @@ from collections import defaultdict
 
 class Graph:
 
-    def __init__(self, vertices):
-        self.vertexes = defaultdict(list)
-        self.vert_num = vertices
-        self.index = 0
-        self.indexes = [-1] * self.vert_num
-        self.low_index = [-1] * self.vert_num
-        self.on_stack = [False] * self.vert_num
+    def __init__(self):
+        self.nodes_dict = defaultdict(list)
+        self.low_link_id = []
+        self.on_stack = []
         self.stack = []
         self.scc = list()
 
     def add_vertex(self, vertex, edge_to):
-        self.vertexes[vertex].append(edge_to)
+        self.nodes_dict[vertex].append(edge_to)
+        self.low_link_id = [-1] * len(self.nodes_dict)
+        self.on_stack = [False] * len(self.nodes_dict)
 
-    def dfs(self, at):
-        self.stack.append(at)
-        self.on_stack[at] = True
-        self.index += 1
-        self.indexes[at] = self.index
-        self.low_index[at] = self.index
+    def dfs(self, current):
+        self.stack.append(current)
+        self.on_stack[current] = True
+        self.low_link_id[current] = current
 
-        for to in self.vertexes[at]:
-            if self.indexes[to] == -1:
-                self.dfs(to)
-                self.low_index[at] = min(self.low_index[at], self.low_index[to])
-            elif self.on_stack[to]:
-                self.low_index[at] = min(self.low_index[at], self.low_index[to])
+
+        for child in self.nodes_dict[current]:
+            if self.low_link_id[child] == -1:
+                self.dfs(child)
+                self.low_link_id[current] = min(self.low_link_id[current], self.low_link_id[child])
+            elif self.on_stack[child]:
+                self.low_link_id[current] = min(self.low_link_id[current], self.low_link_id[child])
+
         node = -1
-
-        if self.indexes[at] == self.low_index[at]:
-            arr = []
-            while node != at:
+        if current == self.low_link_id[current]:
+            new_scc = []
+            while node != current:
                 node = self.stack.pop()
-                arr.append(node)
+                new_scc.append(node)
                 self.on_stack[node] = False
-            self.scc.append(arr)
+            self.scc.append(new_scc)
 
     def tarjan(self):
-        for i in range(self.vert_num):
-            if self.indexes[i] == -1:
+        for i in range(len(self.nodes_dict)):
+            if self.low_link_id[i] == -1:
                 self.dfs(i)
         return self.scc
-
