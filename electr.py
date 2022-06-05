@@ -7,11 +7,11 @@ class Electr:
             self.heights = list(map(int, electr_in_file.readline().split(" ")))
 
     def form_solutions(self):
-        solutions = [-1 for i in range(len(self.heights) + 1)]
+        solutions = [-1] * (len(self.heights) + 1)
         solutions[0] = 0
         solutions[1] = self.heights[0]
-        for i in range(2, len(self.heights) + 1):
-            solutions[i] = max(solutions[i - 1], solutions[i - 2] + self.heights[i - 1])
+        for i in range(1, len(self.heights)):                        # next height
+            solutions[i + 1] = max(solutions[i], solutions[i - 1] + self.heights[i])
         return solutions
 
     def reconstruct_solution(self):
@@ -22,12 +22,12 @@ class Electr:
             if solutions[i] == solutions[i - 1]:
                 i -= 1
             else:
-                indices_to_include.insert(0, i - 1)
+                indices_to_include.append(i - 1)
                 i -= 2
-            
+
         return indices_to_include
 
-    def calculate_length_of_lines(self, indices):
+    def calculate_length(self, indices):
         heights = self.heights
         length_of_lines = 0
 
@@ -35,10 +35,7 @@ class Electr:
             if i not in indices:
                 heights[i] = 1
 
-        for i in range(len(heights) - 1):            
-            length_of_line = (self.distance**2 + (heights[i] - heights[i+1])**2)**(1/2)
+        for i in range(len(heights) - 1):
+            length_of_line = (self.distance ** 2 + (heights[i] - heights[i + 1]) ** 2) ** (1 / 2)
             length_of_lines += length_of_line
-
         return round(length_of_lines, 2)
-
-
