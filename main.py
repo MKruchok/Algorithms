@@ -20,7 +20,6 @@ class Graph:
         self.on_stack[current] = True
         self.low_link_id[current] = current
 
-
         for child in self.nodes_dict[current]:
             if self.low_link_id[child] == -1:
                 self.dfs(child)
