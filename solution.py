@@ -7,17 +7,17 @@ class Solution:
 
     def find_lps(self):
         lps = [0] * len(self.pattern)
-        index = 0
-        for i in range(1, len(self.pattern)):
-            if self.pattern[i] == self.pattern[index]:
-                lps[i] = index + 1
-                index += 1
+        base = 0
+        for current in range(1, len(self.pattern)):
+            if self.pattern[current] == self.pattern[base]:
+                lps[current] = base + 1
+                base += 1
             else:
-                if index != 0:
-                    index = lps[index - 1]
+                if base != 0:
+                    base = lps[base - 1]
                 else:
-                    lps[i] = 0
-                    i += 1
+                    lps[current] = 0
+                    current += 1
         return lps
 
     def kmp(self):
