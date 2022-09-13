@@ -1,13 +1,14 @@
 import copy
+import numpy as np
 
 
 # Group 33, variant 11
 # Знайти обернену матрицю методом Гауса з вибором гол. елемента по рядку
 
 def gauss(a):
-    result = []
-    # identity matrix
+    # Одинична матриця (identity matrix)
     n = 4
+    np.set_printoptions(suppress=True)
     e = [[0 for _ in range(n)] for _ in range(n)]
     inverse = [[0 for _ in range(n)] for _ in range(n)]
     for i in range(n):
@@ -29,8 +30,8 @@ def gauss(a):
             m = v[k][k]
             w = k
             for l in range(k + 1, n):
-                if m < v[k][l]:
-                    m = v[k][l]
+                if m < abs(v[k][l]):
+                    m = abs(v[k][l])
                     w = l
                     inx[k], inx[w] = inx[w], inx[k]
                     for d in range(n):
@@ -68,6 +69,9 @@ def gauss(a):
             inverse[i][b] = x[i]
     for i in range(n):
         print(inverse[i])
+    # Перевірка
+    check = np.array(a).dot(np.array(inverse))
+    print(check)
 
 
 if __name__ == '__main__':
