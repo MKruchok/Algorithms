@@ -27,11 +27,11 @@ def f2(args):
 if __name__ == '__main__':
     n = 2
     e = 0.00001
+    h = -0.001
     x = [0 for _ in range(n)]
     _x = [0 for _ in range(n)]
     f = [0 for _ in range(n)]
     _f = [0 for _ in range(n)]
-    h = -0.001
     x_old = [0.5 for _ in range(n)]
     E = [[0 for _ in range(n)] for _ in range(n)]
     J = [[0 for _ in range(n)] for _ in range(n)]
