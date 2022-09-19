@@ -27,7 +27,7 @@ def f2(args):
 if __name__ == '__main__':
     n = 2
     e = 0.00001
-    h = -0.001
+    h = 0.0001
     x = [0 for _ in range(n)]
     _x = [0 for _ in range(n)]
     f = [0 for _ in range(n)]
@@ -94,15 +94,6 @@ if __name__ == '__main__':
                         s += c[i][j] * x[j]
                     x[i] = y[i] - s
 
-                # Впорядкування
-                for i in range(n):
-                    if inx[i] != i:
-                        z = inx[i]
-                        value = x[i]
-                        x[i] = x[z]
-                        x[z] = value
-                        inx[i] = inx[z]
-                        inx[z] = z
 
             for i in range(n):
                 inverse[i][b] = x[i]
@@ -116,10 +107,10 @@ if __name__ == '__main__':
 
         for i in range(n):
             if abs((x[i] - x_old[i]) / x[i]) * 100 < e:
-                if i == n - 1:
-                    condition = True
-            else:
-                x_old[i] = x[i]
+                condition = True
+
+        for i in range(n):
+            x_old[i] = x[i]
 
     print("Корені:", x)
     print("Перевірка рівняння 1:", x[0] ** 2 + x[1] ** 2 + 0.1 - x[0])

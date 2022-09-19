@@ -28,7 +28,7 @@ if __name__ == '__main__':
     print("x0 =", x)
     print("Перевірка:", x ** 3 - x ** 2 + 3)
 
-    # Граф
+    # Graph
     x_points = np.linspace(-2, 2)
     plt.grid()
     plt.scatter(x=x, y=0, color="black")

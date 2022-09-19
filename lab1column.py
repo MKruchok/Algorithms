@@ -52,15 +52,6 @@ def gauss(a):
                     s += c[i][j] * x[j]
                 x[i] = y[i] - s
 
-            # Впорядкування
-            for i in range(n):
-                if inx[i] != i:
-                    z = inx[i]
-                    value = x[i]
-                    x[i] = x[z]
-                    x[z] = value
-                    inx[i] = inx[z]
-                    inx[z] = z
 
         for i in range(n):
             inverse[i][b] = x[i]
