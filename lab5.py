@@ -55,5 +55,5 @@ if __name__ == '__main__':
     plt.xlabel("t, сек")
     plt.ylabel("U, В")
     plt.axhline(y=0, color="black")
-    plt.plot(graph_x, graph_y, 'go', color="green", markersize=1, markevery=10)
+    plt.plot(graph_x, graph_y, 'go', markersize=1, markevery=10)
     plt.show()
