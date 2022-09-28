@@ -79,11 +79,17 @@ if __name__ == '__main__':
                         for d in range(n):
                             v[k][d], v[w][d] = v[w][d], v[k][d]
 
-                y[k] = p[k] / v[k][k]
+                if v[k][k] != 0:
+                    y[k] = p[k] / v[k][k]
+                else:
+                    y[k] = p[k]
                 for i in range(k + 1, n):
                     p[i] -= v[i][k] * y[k]
                     for j in range(k + 1, n):
-                        c[k][j] = v[k][j] / v[k][k]
+                        if v[k][k] != 0:
+                            c[k][j] = v[k][j] / v[k][k]
+                        else:
+                            c[k][j] = v[k][j]
                         v[i][j] -= v[i][k] * c[k][j]
 
                 # Обернений хід
